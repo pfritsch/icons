@@ -1,0 +1,84 @@
+// Imports
+//--------------------------------------------------------------------
+@import "compass";
+
+// Parameters
+//--------------------------------------------------------------------
+
+// The space between the icons to avoid unwanted pixels
+$icons-spacing: 10px;
+
+// The layout let you choose the orientation of the generated image
+$icons-layout: horizontal;
+
+// Import sprite at normal size
+$sprites: sprite-map("icons/*.png", $new-position: 100%, $spacing: $icons-spacing, $layout: $icons-layout, $new-repeat: no-repeat);
+
+// Import sprite at 2x size
+$sprites2x: sprite-map("icons@2x/*.png", $new-position: 100%, $spacing: $icons-spacing, $layout: $icons-layout, $new-repeat: no-repeat);
+
+
+// Mixin
+//--------------------------------------------------------------------
+
+@mixin sprite-retina($name, $sprites: $sprites, $sprites2x: $sprites2x, $dimensions: true, $pad: 0) {
+
+  // Give width and height of the icon file
+  @if $dimensions == true {
+    @include sprite-dimensions($sprites, $name);
+  }
+
+  // Compass mixins
+  background-image: sprite-url($sprites);
+  background-position: sprite-position($sprites, $name, -$pad, -$pad);
+  background-repeat: no-repeat;
+
+  // The $pad is the padding the element will have (requires $spacing on the sprite maps), it's great for iPhone interfaces to make hit areas bigger
+  @if $pad > 0 {
+    padding: $pad;
+  }
+
+  // A media query to target Retina Displays
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-device-pixel-ratio: 1.5) {
+    & {
+      // The name of our big icons is followed by "@2x"
+      $name2x: $name+"@2x";
+
+      $pos: sprite-position($sprites2x, $name2x, -$pad * 2, -$pad * 2);
+
+      background-image: sprite-url($sprites2x);
+      background-position: nth($pos, 1) nth($pos, 2) / 2;
+      @include background-size(ceil(image-width(sprite-path($sprites2x)) / 2) auto);
+      // sprite-path() returns the path of the generated sprite sheet, which image-width() calculates the width of. the ceil() is in place in case you have sprites that have an odd-number of pixels in width
+    }
+  }
+}
+
+// Selector
+//--------------------------------------------------------------------
+
+.icon {
+
+  // Basic styles for our icons
+  display:block;
+  float:left;
+  margin-right: 5px;
+  background-color: #417ab4;
+  @include border-radius(3px);
+
+  // A Sass loop with our icons names
+  @each $myIcon in Cow, Fire, Leaf, Nuke, Sun, Water, Wind, Wood {
+
+    // The #{} let us use variables in the selector
+    &.icon-#{$myIcon} {
+
+      // And the mixin
+      @include sprite-retina(#{$myIcon});
+    }
+  }
+}
+
+// We add an hover state
+.icon:hover {
+  background-color: #6a9a32;
+}
