@@ -7,3 +7,10 @@ Create and optimize icons for Retina displays. Integration in website with CSS a
 * [Part II: Image sprite with Compass](http://www.wearecube.ch/?p=1438)
 
 [Demonstration](http://www.wearecube.ch/tuto/icons/)
+
+
+
+<br />
+<br />
+<br />
+<small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/ch/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/ch/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/ch/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Switzerland License</a>.</small>
